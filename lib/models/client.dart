@@ -26,9 +26,7 @@ class Client {
 
   // Create a Client from a Map
   static Client fromMap(Map<String, dynamic> map) {
-    double balance = (map['balance'] is int)
-        ? (map['balance'] as int).toDouble()
-        : map['balance'];
+    double balance = (map['balance'] as num).toDouble();
 
     return Client(
       id: map['id'],

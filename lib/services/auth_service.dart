@@ -47,6 +47,8 @@ class AuthService {
           userCredential.user!.uid, // Use Firebase UID as Firestore document ID
           email,
           username,
+          'https://upload.wikimedia.org/wikipedia/commons/9/9b/Cat_crying.jpg',
+          500,
           // Add other user data fields here
         );
       }
@@ -114,13 +116,19 @@ class AuthService {
           Map<String, dynamic> userData =
               userDoc.data() as Map<String, dynamic>;
 
+          double balance = 0;
+          if (userData.containsKey('balance')) {
+            balance = (userData['balance'] is int)
+                ? (userData['balance'] as int).toDouble()
+                : (userData['balance'] as double);
+          }
           // Create a Client object from the fetched data
           Client client = Client(
             id: user.uid,
             name: userData['name'] ?? '', // Replace with the actual field name
             email:
                 userData['email'] ?? '', // Replace with the actual field name
-            balance: userData['balance'] ?? 0,
+            balance: balance,
             clientImageUrl: userData['clientImageUrl'] ?? '',
             // Initialize other properties based on your data structure
           );
@@ -142,7 +150,7 @@ class AuthService {
 
   // Save user data to Firestore
   Future<void> saveUserDataToFirestore(String uid, String email,
-      String username /* Add other user data fields here */) async {
+      String username, String clientImageUrl, double balance) async {
     DocumentReference userRef =
         FirebaseFirestore.instance.collection('users').doc(uid);
     DocumentSnapshot userDoc = await userRef.get();
@@ -155,6 +163,8 @@ class AuthService {
         await userRef.set({
           'email': email,
           'name': username, // Use email as default name
+          'clientImageUrl': clientImageUrl,
+          'balance': balance,
           // Add other user data fields here
         }, SetOptions(merge: true));
       }

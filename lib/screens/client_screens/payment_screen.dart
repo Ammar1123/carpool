@@ -98,6 +98,12 @@ class PaymentScreen extends StatelessWidget {
 
                     await OrderService().addNewOrder(newOrder);
 
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Payment successful. Order created!'),
+                      ),
+                    );
+
                     Navigator.of(context).pushNamedAndRemoveUntil(
                         '/home', (Route<dynamic> route) => false);
                   } else {

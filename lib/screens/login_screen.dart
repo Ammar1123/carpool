@@ -1,5 +1,4 @@
 import 'package:carpool/app/main_client_app.dart';
-import 'package:carpool/app/main_driver_app.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -90,19 +89,10 @@ class _LoginScreenState extends State<LoginScreen> {
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(30),
                         ),
-                        minimumSize: Size(150, 50), // Adjust the size as needed
+                        minimumSize:
+                            const Size(150, 50), // Adjust the size as needed
                       ),
                       child: const Text('Login as Client'),
-                    ),
-                    ElevatedButton(
-                      onPressed: () => performLogin(role: "driver"),
-                      style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
-                        ),
-                        minimumSize: Size(150, 50), // Adjust the size as needed
-                      ),
-                      child: const Text('Login as Driver'),
                     ),
                   ],
                 ),
@@ -132,14 +122,8 @@ class _LoginScreenState extends State<LoginScreen> {
           Navigator.pushReplacement(
               context,
               MaterialPageRoute(
-                builder: (context) => MainClientApp(),
+                builder: (context) => const MainClientApp(),
               )); // Replace with your client home route
-        } else {
-          Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => MainDriverApp(),
-              )); // Replace with your driver home route
         }
       } catch (e) {
         print("Error: $e");

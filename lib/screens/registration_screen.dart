@@ -10,9 +10,11 @@ class RegisterScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Registration Screen'),
       ),
-      body: const Padding(
-        padding: EdgeInsets.all(16.0),
-        child: RegisterForm(), // Create a separate RegisterForm widget
+      body: const SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: RegisterForm(), // Create a separate RegisterForm widget
+        ),
       ),
     );
   }
@@ -123,12 +125,12 @@ class _RegisterFormState extends State<RegisterForm> {
             onPressed: () async {
               if (_formKey.currentState!.validate()) {
                 // All fields are valid, perform registration
+                Navigator.pop(context);
                 AuthService().registerWithEmailAndPassword(
                   _emailController.text,
                   _passwordController.text,
                   _usernameController.text,
                 );
-                Navigator.pop(context);
               }
             },
             style: ElevatedButton.styleFrom(

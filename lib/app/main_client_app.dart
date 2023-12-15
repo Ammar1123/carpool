@@ -26,7 +26,6 @@ class _MainAppState extends State<MainClientApp> {
   _loadCurrentUser() async {
     currentUser = await AuthService().getClient();
     await DatabaseHelper.instance.insertClient(currentUser!);
-
     setState(() {});
   }
 
@@ -36,12 +35,16 @@ class _MainAppState extends State<MainClientApp> {
       if (currentUser != null)
         HomeScreen(currentUser: currentUser!)
       else
-        const CircularProgressIndicator(), // Show loading indicator if currentUser is null
+        const Center(
+            child:
+                CircularProgressIndicator()), // Show loading indicator if currentUser is null
       const OrderHistoryScreen(),
       if (currentUser != null)
         ProfileScreen(userId: currentUser!.id)
       else
-        const CircularProgressIndicator(), // Show loading indicator if currentUser is null
+        const Center(
+            child:
+                CircularProgressIndicator()), // Show loading indicator if currentUser is null
     ];
 
     return Scaffold(

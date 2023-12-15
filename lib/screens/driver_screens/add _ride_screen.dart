@@ -31,6 +31,11 @@ class _AddRideScreenState extends State<AddRideScreen> {
     'Elshrouk',
     'rehab',
   ]; // Example locations
+  List<TimeOfDay> allowedTimes = [
+    const TimeOfDay(hour: 7, minute: 30),
+    const TimeOfDay(hour: 17, minute: 30),
+  ];
+  TimeOfDay selectedTripTime = const TimeOfDay(hour: 7, minute: 30);
 
   List<DropdownMenuItem<String>> _getFromLocations() {
     List<String> filteredLocations = List<String>.from(locations);

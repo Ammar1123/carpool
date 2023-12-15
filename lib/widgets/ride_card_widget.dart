@@ -18,6 +18,10 @@ class RideCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Format the date and time
+    final String formattedDate = DateFormat("dd/MM/yyyy").format(route.time);
+    final String formattedTime = DateFormat("h:mm a").format(route.time);
+
     return Card(
       color: Colors.black,
       child: Padding(
@@ -30,7 +34,11 @@ class RideCard extends StatelessWidget {
               style: const TextStyle(fontSize: 18, color: Colors.yellow),
             ),
             Text(
-              'Time: ${DateFormat("d MMM").format(route.time)} ---> ${DateFormat("h:mm a").format(route.time)}',
+              'Date: $formattedDate',
+              style: const TextStyle(color: Colors.yellow),
+            ),
+            Text(
+              'Time: $formattedTime',
               style: const TextStyle(color: Colors.yellow),
             ),
             Text('Price: ${route.price}',
