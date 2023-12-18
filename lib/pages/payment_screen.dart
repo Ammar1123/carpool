@@ -15,14 +15,19 @@ class PaymentScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text('Payment Page'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
+            const SizedBox(
+              height: 20,
+            ),
             const Text('Enter your credit card details',
                 style: TextStyle(
+                  textBaseline: TextBaseline.alphabetic,
                   fontSize: 26,
                   fontWeight: FontWeight.bold,
                 )),
@@ -30,7 +35,8 @@ class PaymentScreen extends StatelessWidget {
             TextField(
               decoration: InputDecoration(
                 labelText: 'Credit Card Number',
-                fillColor: Colors.yellow,
+                fillColor: Colors.purple,
+                labelStyle: const TextStyle(color: Colors.white),
                 filled: true,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
@@ -41,7 +47,8 @@ class PaymentScreen extends StatelessWidget {
             TextField(
               decoration: InputDecoration(
                 labelText: 'Expiry Date',
-                fillColor: Colors.yellow,
+                labelStyle: const TextStyle(color: Colors.white),
+                fillColor: Colors.purple,
                 filled: true,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
@@ -52,7 +59,8 @@ class PaymentScreen extends StatelessWidget {
             TextField(
               decoration: InputDecoration(
                 labelText: 'CVV',
-                fillColor: Colors.yellow,
+                labelStyle: const TextStyle(color: Colors.white),
+                fillColor: Colors.purple,
                 filled: true,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30),
@@ -117,12 +125,10 @@ class PaymentScreen extends StatelessWidget {
                   }
                 },
                 child: const Padding(
-                  padding: EdgeInsets.all(20.0),
+                  padding: EdgeInsets.all(15.0),
                   child: Text('Confirm Payment',
-                      style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      )),
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
                 ),
               ),
             ),

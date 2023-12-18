@@ -1,7 +1,6 @@
 import 'package:carpool/app/main_client_app.dart';
 import 'package:carpool/firebase_options.dart';
-import 'package:carpool/screens/login_screen.dart';
-import 'package:carpool/screens/registration_screen.dart';
+import 'package:carpool/pages/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -38,17 +37,12 @@ class MyApp extends StatelessWidget {
           labelLarge: TextStyle(color: Colors.white),
           labelSmall: TextStyle(color: Colors.white),
         ),
-        primarySwatch: Colors.yellow, // Primary color for your app
+        primarySwatch: Colors.purple, // Primary color for your app
         scaffoldBackgroundColor: const Color.fromARGB(
-            255, 0, 41, 75), // Default background color for Scaffolds
+            255, 15, 1, 77), // Default background color for Scaffolds
       ),
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      routes: {
-        '/login': (context) => const LoginScreen(),
-        '/home': (context) => const MainClientApp(),
-        '/register': (context) => const RegisterScreen(),
-      },
       home: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (BuildContext context, AsyncSnapshot<User?> snapshot) {

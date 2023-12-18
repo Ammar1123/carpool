@@ -8,6 +8,7 @@ class RegisterScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true, // Align title to center
         title: const Text('Registration Screen'),
       ),
       body: const SingleChildScrollView(
@@ -41,15 +42,18 @@ class _RegisterFormState extends State<RegisterForm> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          const SizedBox(
+            height: 50,
+          ),
           Container(
-            height: 150, // Adjust as needed
-            width: 160, // Adjust as needed
+            height: 200, // Adjust as needed
+            width: 165, // Adjust as needed
             decoration: const BoxDecoration(
               shape: BoxShape.circle,
               image: DecorationImage(
                 fit: BoxFit.cover,
                 image: AssetImage(
-                    'lib/assets/carpool.png'), // Replace with your image
+                    'lib/assets/images.jpeg'), // Replace with your image
               ),
             ),
           ),
@@ -58,15 +62,15 @@ class _RegisterFormState extends State<RegisterForm> {
             controller: _emailController,
             decoration: InputDecoration(
               labelText: 'Email',
-              fillColor: Colors.yellow,
+              fillColor: Colors.purple,
               filled: true,
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(10),
               ),
-              labelStyle: const TextStyle(color: Colors.black),
+              labelStyle: const TextStyle(color: Colors.white),
             ),
             keyboardType: TextInputType.emailAddress,
-            style: const TextStyle(color: Colors.black),
+            style: const TextStyle(color: Colors.white),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Email is required';
@@ -84,14 +88,14 @@ class _RegisterFormState extends State<RegisterForm> {
             controller: _usernameController,
             decoration: InputDecoration(
               labelText: 'Username',
-              fillColor: Colors.yellow,
+              fillColor: Colors.purple,
               filled: true,
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(10),
               ),
-              labelStyle: const TextStyle(color: Colors.black),
+              labelStyle: const TextStyle(color: Colors.white),
             ),
-            style: const TextStyle(color: Colors.black),
+            style: const TextStyle(color: Colors.white),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Username is required';
@@ -104,15 +108,15 @@ class _RegisterFormState extends State<RegisterForm> {
             controller: _passwordController,
             decoration: InputDecoration(
               labelText: 'Password',
-              fillColor: Colors.yellow,
+              fillColor: Colors.purple,
               filled: true,
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30),
+                borderRadius: BorderRadius.circular(10),
               ),
-              labelStyle: const TextStyle(color: Colors.black),
+              labelStyle: const TextStyle(color: Colors.white),
             ),
             obscureText: true,
-            style: const TextStyle(color: Colors.black),
+            style: const TextStyle(color: Colors.white),
             validator: (value) {
               if (value == null || value.isEmpty) {
                 return 'Password is required';
@@ -121,27 +125,30 @@ class _RegisterFormState extends State<RegisterForm> {
             },
           ),
           const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () async {
-              if (_formKey.currentState!.validate()) {
-                // All fields are valid, perform registration
-                Navigator.pop(context);
-                AuthService().registerWithEmailAndPassword(
-                  _emailController.text,
-                  _passwordController.text,
-                  _usernameController.text,
-                );
-              }
-            },
-            style: ElevatedButton.styleFrom(
-              foregroundColor: Colors.black,
-              backgroundColor: Colors.yellow, // Button text color
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
+          SizedBox(
+            width: 150,
+            child: ElevatedButton(
+              onPressed: () async {
+                if (_formKey.currentState!.validate()) {
+                  // All fields are valid, perform registration
+                  Navigator.pop(context);
+                  AuthService().registerWithEmailAndPassword(
+                    _emailController.text,
+                    _passwordController.text,
+                    _usernameController.text,
+                  );
+                }
+              },
+              style: ElevatedButton.styleFrom(
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.purple, // Button text color
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                minimumSize: const Size.fromHeight(50),
               ),
-              minimumSize: const Size.fromHeight(50),
+              child: const Text('Register'),
             ),
-            child: const Text('Register'),
           ),
         ],
       ),

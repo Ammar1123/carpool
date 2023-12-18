@@ -4,7 +4,7 @@ import 'package:carpool/models/client.dart';
 import 'package:carpool/services/auth_service.dart';
 import 'package:carpool/services/order_service.dart';
 import 'package:carpool/services/route_service.dart'; // Import the RouteService
-import 'package:carpool/widgets/ride_card_widget.dart';
+import 'package:carpool/pages/ride_card_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -21,16 +21,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final AuthService authService = AuthService(); // Initialize AuthService
   final OrderService orderService = OrderService(); // Initialize OrderService
   bool isReservationFunctionEnabled = true;
-  List<String> reservedRouteIds = []; // List to store reserved route IDs
-
-  // void fetchReservedRoutes() async {
-  //   // Fetch client orders and populate reservedRouteIds
-  //   var clientOrders =
-  //       await orderService.getClientOrders(widget.currentUser.id);
-  //   setState(() {
-  //     reservedRouteIds = clientOrders.map((order) => order.routeId).toList();
-  //   });
-  // }
 
   bool canReserveForTrip(DateTime tripTime) {
     DateTime now = DateTime.now();
@@ -106,8 +96,20 @@ class _HomeScreenState extends State<HomeScreen> {
                   return Scaffold(
                       appBar: AppBar(
                         toolbarHeight: 60,
-                        title: Text('Welcome back ${widget.currentUser.name}'),
-                        centerTitle: true,
+                        title: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const Text(
+                              'Welcome back',
+                              style: TextStyle(fontSize: 12),
+                            ),
+                            Text(
+                              client.name,
+                              style: const TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            )
+                          ],
+                        ),
                       ),
                       body: _buildRoutesList(availableRoutes, client));
                 },
@@ -133,25 +135,25 @@ class _HomeScreenState extends State<HomeScreen> {
         routes.where((route) => route.startLocation == 'AinShams').toList();
     if (routesFromAinShams.isNotEmpty) {
       routeWidgets.add(Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text('Trips from AinShams',
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
-            Switch(
-              value: isReservationFunctionEnabled,
-              onChanged: (value) {
-                setState(() {
-                  isReservationFunctionEnabled = value;
-                });
-              },
+            const Text(''),
+            const SizedBox(
+              width: 40,
             ),
-            Text(
-              isReservationFunctionEnabled
-                  ? 'Reservation Enabled'
-                  : 'Reservation Disabled',
-              style: const TextStyle(fontSize: 12),
-            )
+            const Text('From AinShams',
+                style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+            const SizedBox(width: 20),
+            IconButton(
+                onPressed: () {
+                  setState(() {
+                    isReservationFunctionEnabled =
+                        !isReservationFunctionEnabled;
+                  });
+                },
+                icon: const Icon(Icons.filter_list, color: Colors.white))
           ],
         ),
       ));
@@ -168,11 +170,11 @@ class _HomeScreenState extends State<HomeScreen> {
     if (routesToAinShams.isNotEmpty) {
       routeWidgets.add(
         const Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-              child: Text('Trips ending at AinShams',
+              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+              child: Text('Ending at AinShams',
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
             ),
           ],

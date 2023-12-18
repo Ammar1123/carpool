@@ -1,4 +1,5 @@
 import 'package:carpool/app/main_client_app.dart';
+import 'package:carpool/screens/screens/registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -19,6 +20,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text('Login Screen'),
       ),
       body: Padding(
@@ -33,14 +35,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   height: 50,
                 ),
                 Container(
-                  height: 150, // Adjust as needed
-                  width: 160, // Adjust as needed
+                  height: 200, // Adjust as needed
+                  width: 165, // Adjust as needed
                   decoration: const BoxDecoration(
                     shape: BoxShape.circle,
                     image: DecorationImage(
                       fit: BoxFit.cover,
                       image: AssetImage(
-                          'lib/assets/carpool.png'), // Replace with your image
+                          'lib/assets/images.jpeg'), // Replace with your image
                     ),
                   ),
                 ),
@@ -49,17 +51,18 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _emailController,
                   decoration: InputDecoration(
                     labelText: 'Email',
-                    fillColor: Colors.yellow,
+                    hintStyle: const TextStyle(color: Colors.white),
+                    fillColor: Colors.purple,
                     filled: true,
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     labelStyle: const TextStyle(
-                        color: Colors.black), // Black text for label
+                        color: Colors.white), // Black text for label
                   ),
                   keyboardType: TextInputType.emailAddress,
                   style: const TextStyle(
-                      color: Colors.black), // Black text for input
+                      color: Colors.white), // Black text for input
                   // ... Validator ...
                 ),
                 const SizedBox(height: 16),
@@ -67,17 +70,17 @@ class _LoginScreenState extends State<LoginScreen> {
                   controller: _passwordController,
                   decoration: InputDecoration(
                     labelText: 'Password',
-                    fillColor: Colors.yellow,
+                    fillColor: Colors.purple,
                     filled: true,
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(30),
+                      borderRadius: BorderRadius.circular(10),
                     ),
                     labelStyle: const TextStyle(
-                        color: Colors.black), // Black text for label
+                        color: Colors.white), // Black text for label
                   ),
                   obscureText: true,
                   style: const TextStyle(
-                      color: Colors.black), // Black text for input
+                      color: Colors.white), // Black text for input
                 ),
                 const SizedBox(height: 16),
                 Row(
@@ -87,18 +90,22 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () => performLogin(role: "client"),
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(10),
                         ),
                         minimumSize:
                             const Size(150, 50), // Adjust the size as needed
                       ),
-                      child: const Text('Login as Client'),
+                      child: const Text('Login'),
                     ),
                   ],
                 ),
                 TextButton(
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/register');
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const RegisterScreen(),
+                      ),
+                    );
                   },
                   child: const Text('Don\'t have an account? Register'),
                 ),

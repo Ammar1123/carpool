@@ -34,7 +34,8 @@ class OrderHistoryScreen extends StatelessWidget {
             length: 2,
             child: Scaffold(
               appBar: AppBar(
-                title: const Text('Order History Page'),
+                title: const Text('Order History'),
+                centerTitle: true,
                 bottom: const TabBar(
                   tabs: [
                     Tab(text: 'Upcoming'),
@@ -111,15 +112,40 @@ class OrderHistoryScreen extends StatelessWidget {
     );
   }
 
-  ListTile _buildOrderTile(Order order) {
-    return ListTile(
-      contentPadding: const EdgeInsets.all(10),
-      title: Text(order.title,
-          style: const TextStyle(
-              fontSize: 22, color: Colors.yellow, fontWeight: FontWeight.bold)),
-      subtitle: Text(
-          'Status: ${order.status} \nDriver: ${order.driverName} \nTime: ${DateFormat("d MMM -- h:mm a").format(order.time)}',
-          style: const TextStyle(fontSize: 18, color: Colors.yellow)),
+  Widget _buildOrderTile(Order order) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 7, horizontal: 10),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.purple,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center, // Center vertically
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(10),
+            child: Column(
+              crossAxisAlignment:
+                  CrossAxisAlignment.center, // Center horizontally
+              children: [
+                Text(order.title,
+                    textAlign: TextAlign.center, // Center the text
+                    style: const TextStyle(
+                        fontSize: 22,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold)),
+                const SizedBox(
+                    height: 10), // Spacing between title and subtitle
+                Text(
+                    'Status: ${order.status} \nDriver: ${order.driverName} \nTime: ${DateFormat("d MMM -- h:mm a").format(order.time)}',
+                    textAlign: TextAlign.center, // Center the text
+                    style: const TextStyle(fontSize: 18, color: Colors.white)),
+                const SizedBox(height: 5),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
