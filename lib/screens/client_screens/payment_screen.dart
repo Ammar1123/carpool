@@ -87,7 +87,7 @@ class PaymentScreen extends StatelessWidget {
                         driverName: route.driverName,
                         driverId: route.driverId,
                         id:
-                            'some_unique_id', // Generate a unique ID for the order
+                            '$DateTime.now()', // Generate a unique ID for the order
                         userId: currentUser.id,
                         routeId: route.id,
                         status: 'pending',

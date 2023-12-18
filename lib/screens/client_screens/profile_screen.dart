@@ -44,9 +44,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () async {
-              await FirebaseAuth.instance.signOut(); // Sign out
-              Navigator.of(context)
-                  .pushReplacementNamed('/login'); // Redirect to login screen
+              _showLogoutDialog(context);
             },
           )
         ],
@@ -54,6 +52,39 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: isLoading || currentUser == null
           ? const Center(child: CircularProgressIndicator())
           : _buildProfileView(),
+    );
+  }
+
+  void _showLogoutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          title: const Text("Sign out", style: TextStyle(color: Colors.red)),
+          content: const Text("Are you sure you want to sign out?",
+              style: TextStyle(color: Colors.grey)),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Cancel', style: TextStyle(color: Colors.red)),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+            ),
+            TextButton(
+              child:
+                  const Text('Confirm', style: TextStyle(color: Colors.blue)),
+              onPressed: () async {
+                await FirebaseAuth.instance.signOut();
+                Navigator.of(context).pushReplacementNamed('/login');
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 

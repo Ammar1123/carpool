@@ -1,6 +1,8 @@
+import 'package:carpool/models/order.dart';
 import 'package:carpool/models/route.dart';
 import 'package:carpool/models/client.dart';
 import 'package:carpool/services/auth_service.dart';
+import 'package:carpool/services/order_service.dart';
 import 'package:carpool/services/route_service.dart'; // Import the RouteService
 import 'package:carpool/widgets/ride_card_widget.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +19,18 @@ class _HomeScreenState extends State<HomeScreen> {
   List<CarpoolRoute> availableRoutes = [];
   final RouteService routeService = RouteService(); // Initialize RouteService
   final AuthService authService = AuthService(); // Initialize AuthService
+  final OrderService orderService = OrderService(); // Initialize OrderService
   bool isReservationFunctionEnabled = true;
+  List<String> reservedRouteIds = []; // List to store reserved route IDs
+
+  // void fetchReservedRoutes() async {
+  //   // Fetch client orders and populate reservedRouteIds
+  //   var clientOrders =
+  //       await orderService.getClientOrders(widget.currentUser.id);
+  //   setState(() {
+  //     reservedRouteIds = clientOrders.map((order) => order.routeId).toList();
+  //   });
+  // }
 
   bool canReserveForTrip(DateTime tripTime) {
     DateTime now = DateTime.now();
@@ -59,26 +72,46 @@ class _HomeScreenState extends State<HomeScreen> {
           );
         } else if (clientSnapshot.hasData && clientSnapshot.data != null) {
           Client? client = clientSnapshot.data;
-          return StreamBuilder<List<CarpoolRoute>>(
-            stream: routeService.getAllRoutes(),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) {
-                return Text('Something went wrong: ${snapshot.error}');
-              }
 
-              if (!snapshot.hasData ||
-                  snapshot.connectionState == ConnectionState.waiting) {
+          return StreamBuilder<List<Order>>(
+            stream: orderService.getClientOrders(client!.id),
+            builder: (context, orderSnapshot) {
+              if (orderSnapshot.connectionState == ConnectionState.waiting) {
                 return const Center(child: CircularProgressIndicator());
               }
 
-              List<CarpoolRoute> availableRoutes = snapshot.data ?? [];
-              return Scaffold(
-                  appBar: AppBar(
-                    toolbarHeight: 60,
-                    title: Text('Welcome back ${widget.currentUser.name}'),
-                    centerTitle: true,
-                  ),
-                  body: _buildRoutesList(availableRoutes, client));
+              List<String> reservedRouteIds = orderSnapshot.hasData
+                  ? orderSnapshot.data!.map((order) => order.routeId).toList()
+                  : [];
+
+              return StreamBuilder<List<CarpoolRoute>>(
+                stream: routeService.getAllRoutes(),
+                builder: (context, routeSnapshot) {
+                  if (routeSnapshot.hasError) {
+                    return Text('Something went wrong: ${routeSnapshot.error}');
+                  }
+
+                  if (!routeSnapshot.hasData ||
+                      routeSnapshot.connectionState ==
+                          ConnectionState.waiting) {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+
+                  List<CarpoolRoute> availableRoutes = routeSnapshot.data ?? [];
+                  // Filter out reserved routes
+                  availableRoutes = availableRoutes
+                      .where((route) => !reservedRouteIds.contains(route.id))
+                      .toList();
+
+                  return Scaffold(
+                      appBar: AppBar(
+                        toolbarHeight: 60,
+                        title: Text('Welcome back ${widget.currentUser.name}'),
+                        centerTitle: true,
+                      ),
+                      body: _buildRoutesList(availableRoutes, client));
+                },
+              );
             },
           );
         } else {
@@ -113,6 +146,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 });
               },
             ),
+            Text(
+              isReservationFunctionEnabled
+                  ? 'Reservation Enabled'
+                  : 'Reservation Disabled',
+              style: const TextStyle(fontSize: 12),
+            )
           ],
         ),
       ));
