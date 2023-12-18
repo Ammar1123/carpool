@@ -47,7 +47,7 @@ class AuthService {
           userCredential.user!.uid, // Use Firebase UID as Firestore document ID
           email,
           username,
-          'https://upload.wikimedia.org/wikipedia/commons/9/9b/Cat_crying.jpg',
+          'https://img.freepik.com/free-photo/young-bearded-man-with-striped-shirt_273609-5677.jpg?size=626&ext=jpg&ga=GA1.1.1826414947.1702857600&semt=ais',
           500,
           // Add other user data fields here
         );

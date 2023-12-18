@@ -1,5 +1,5 @@
 import 'package:carpool/models/client.dart';
-import 'package:carpool/screens/screens/payment_screen.dart';
+import 'package:carpool/pages/payment_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:carpool/models/route.dart';

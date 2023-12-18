@@ -1,6 +1,6 @@
 import 'package:carpool/models/client.dart';
 import 'package:carpool/models/route.dart';
-import 'package:carpool/pages/screens/ride_details.dart';
+import 'package:carpool/pages/ride_details.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 

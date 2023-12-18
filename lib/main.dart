@@ -1,4 +1,4 @@
-import 'package:carpool/app/main_client_app.dart';
+import 'package:carpool/main_home_page.dart';
 import 'package:carpool/firebase_options.dart';
 import 'package:carpool/pages/login_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';

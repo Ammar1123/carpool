@@ -1,7 +1,7 @@
 import 'package:carpool/models/client.dart';
 import 'package:carpool/pages/home_screen.dart';
+import 'package:carpool/pages/order_history_screen.dart';
 import 'package:carpool/pages/profile_screen.dart';
-import 'package:carpool/screens/screens/order_history_screen.dart';
 import 'package:carpool/services/auth_service.dart';
 import 'package:carpool/sql_lite.dart';
 import 'package:flutter/material.dart';

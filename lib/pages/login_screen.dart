@@ -1,5 +1,5 @@
-import 'package:carpool/app/main_client_app.dart';
-import 'package:carpool/screens/screens/registration_screen.dart';
+import 'package:carpool/main_home_page.dart';
+import 'package:carpool/pages/registration_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
