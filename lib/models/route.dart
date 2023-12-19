@@ -6,12 +6,14 @@ class CarpoolRoute {
   final double price;
   final String driverName; // New field for driver's name
   final String driverId; // New field for driver's ID
+  final String driverPhoneDriver;
 
   CarpoolRoute({
     required this.id,
     required this.startLocation,
     required this.endLocation,
     required this.time,
+    required this.driverPhoneDriver,
     required this.price,
     required this.driverName, // Initialize in constructor
     required this.driverId, // Initialize in constructor
@@ -25,6 +27,7 @@ class CarpoolRoute {
       'endLocation': endLocation,
       'time': time.toIso8601String(),
       'price': price,
+      'driverPhoneDriver': driverPhoneDriver,
       'driverName': driverName, // Add driverName to Map
       'driverId': driverId, // Add driverId to Map
     };
@@ -39,6 +42,7 @@ class CarpoolRoute {
       id: map['id'],
       startLocation: map['startLocation'],
       endLocation: map['endLocation'],
+      driverPhoneDriver: map['driverPhoneDriver'],
       time: DateTime.parse(map['time']),
       price: price,
       driverName: map['driverName'], // Retrieve driverName from Map

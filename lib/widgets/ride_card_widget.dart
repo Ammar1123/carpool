@@ -31,20 +31,21 @@ class RideCard extends StatelessWidget {
           children: [
             Text(
               '${route.startLocation} to ${route.endLocation}',
-              style: const TextStyle(fontSize: 18, color: Colors.yellow),
+              style: const TextStyle(fontSize: 20, color: Colors.white),
             ),
             Text(
               'Date: $formattedDate',
-              style: const TextStyle(color: Colors.yellow),
+              style: const TextStyle(color: Colors.white),
             ),
             Text(
               'Time: $formattedTime',
-              style: const TextStyle(color: Colors.yellow),
+              style: const TextStyle(color: Colors.white),
             ),
             Text('Price: ${route.price}',
-                style: const TextStyle(color: Colors.yellow)),
+                style: const TextStyle(color: Colors.white)),
             Text('Driver: ${route.driverName}',
-                style: const TextStyle(color: Colors.yellow)),
+                style: const TextStyle(color: Colors.white)),
+            Text('Phone Number: ${route.driverPhoneDriver}'),
             if (showReservationButton) // Conditionally display the button
               Align(
                 alignment: Alignment.bottomRight,

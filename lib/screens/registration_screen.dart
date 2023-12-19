@@ -31,6 +31,7 @@ class _RegisterFormState extends State<RegisterForm> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
+  final TextEditingController _phoneNumberController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -120,6 +121,28 @@ class _RegisterFormState extends State<RegisterForm> {
               return null;
             },
           ),
+          const SizedBox(height: 16),
+          TextFormField(
+            controller: _phoneNumberController,
+            decoration: InputDecoration(
+              labelText: 'Phone Number',
+              fillColor: Colors.yellow,
+              filled: true,
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(30),
+              ),
+              labelStyle: const TextStyle(color: Colors.black),
+            ),
+            keyboardType: TextInputType.phone,
+            style: const TextStyle(color: Colors.black),
+            validator: (value) {
+              if (value == null || value.isEmpty) {
+                return 'Phone number is required';
+              }
+              // Add additional validation if needed
+              return null;
+            },
+          ),
           const SizedBox(height: 20),
           ElevatedButton(
             onPressed: () async {
@@ -130,6 +153,7 @@ class _RegisterFormState extends State<RegisterForm> {
                   _emailController.text,
                   _passwordController.text,
                   _usernameController.text,
+                  _phoneNumberController.text,
                 );
               }
             },

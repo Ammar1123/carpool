@@ -1,4 +1,5 @@
 import 'package:carpool/models/client.dart';
+import 'package:carpool/services/auth_service.dart';
 import 'package:carpool/utils/database_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -16,11 +17,13 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   Client? currentUser;
   bool isLoading = true;
+  AuthService authService = AuthService();
 
   @override
   void initState() {
     super.initState();
     _loadClientData();
+    DatabaseHelper.instance.initDatabase();
   }
 
   Future<void> _loadClientData() async {
@@ -31,7 +34,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
         isLoading = false;
       });
     } else {
-      // Handle the scenario where client data is not found in local database
+      authService.getClientById(widget.userId).then((value) {
+        setState(() {
+          currentUser = value;
+          isLoading = false;
+        });
+      });
     }
   }
 
@@ -113,6 +121,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
             // Email
             Text(
               'Email: ${currentUser!.email}',
+              style: const TextStyle(fontSize: 18),
+            ),
+            const SizedBox(height: 10),
+            // Phone number
+            Text(
+              'Phone number: ${currentUser!.phone}',
               style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 10),

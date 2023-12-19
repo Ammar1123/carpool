@@ -107,7 +107,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       appBar: AppBar(
                         toolbarHeight: 60,
                         title: Text('Welcome back ${widget.currentUser.name}'),
-                        centerTitle: true,
                       ),
                       body: _buildRoutesList(availableRoutes, client));
                 },

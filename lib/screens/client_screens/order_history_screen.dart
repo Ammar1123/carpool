@@ -116,10 +116,10 @@ class OrderHistoryScreen extends StatelessWidget {
       contentPadding: const EdgeInsets.all(10),
       title: Text(order.title,
           style: const TextStyle(
-              fontSize: 22, color: Colors.yellow, fontWeight: FontWeight.bold)),
+              fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold)),
       subtitle: Text(
           'Status: ${order.status} \nDriver: ${order.driverName} \nTime: ${DateFormat("d MMM -- h:mm a").format(order.time)}',
-          style: const TextStyle(fontSize: 18, color: Colors.yellow)),
+          style: const TextStyle(fontSize: 18, color: Colors.white)),
     );
   }
 }

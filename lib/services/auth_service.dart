@@ -33,7 +33,7 @@ class AuthService {
 
   // Register with Email and Password
   Future<UserCredential?> registerWithEmailAndPassword(
-      String email, String password, String username) async {
+      String email, String password, String username,String phone) async {
     try {
       UserCredential userCredential =
           await _auth.createUserWithEmailAndPassword(
@@ -49,6 +49,7 @@ class AuthService {
           username,
           'https://upload.wikimedia.org/wikipedia/commons/9/9b/Cat_crying.jpg',
           500,
+          phone,
           // Add other user data fields here
         );
       }
@@ -83,6 +84,7 @@ class AuthService {
         Client client = Client(
           id: clientId,
           name: userData['name'] ?? '', // Replace with the actual field name
+          phone: userData['phone'] ?? '',
           email: userData['email'] ?? '', // Replace with the actual field name
           balance: userData['balance'] ?? 0,
           clientImageUrl: userData['clientImageUrl'] ?? '',
@@ -125,6 +127,7 @@ class AuthService {
           // Create a Client object from the fetched data
           Client client = Client(
             id: user.uid,
+            phone: userData['phone'] ?? '',
             name: userData['name'] ?? '', // Replace with the actual field name
             email:
                 userData['email'] ?? '', // Replace with the actual field name
@@ -150,7 +153,7 @@ class AuthService {
 
   // Save user data to Firestore
   Future<void> saveUserDataToFirestore(String uid, String email,
-      String username, String clientImageUrl, double balance) async {
+      String username, String clientImageUrl, double balance,String phone) async {
     DocumentReference userRef =
         FirebaseFirestore.instance.collection('users').doc(uid);
     DocumentSnapshot userDoc = await userRef.get();
@@ -163,6 +166,7 @@ class AuthService {
         await userRef.set({
           'email': email,
           'name': username, // Use email as default name
+          'phone': phone, // Add default phone number
           'clientImageUrl': clientImageUrl,
           'balance': balance,
           // Add other user data fields here

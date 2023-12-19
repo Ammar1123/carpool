@@ -19,6 +19,7 @@ class _MainAppState extends State<MainClientApp> {
 
   @override
   void initState() {
+    DatabaseHelper.instance.initDatabase();
     _loadCurrentUser();
     super.initState();
   }

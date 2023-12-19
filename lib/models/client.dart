@@ -2,12 +2,14 @@ class Client {
   final String id;
   final String name;
   final String email;
+  final String phone;
   final double balance;
   final String clientImageUrl; // New field for client's image URL
 
   Client({
     required this.id,
     required this.name,
+    required this.phone,
     required this.email,
     required this.balance,
     required this.clientImageUrl, // Include this in the constructor
@@ -19,6 +21,7 @@ class Client {
       'id': id,
       'name': name,
       'email': email,
+      'phone': phone,
       'balance': balance,
       'clientImageUrl': clientImageUrl, // Add clientImageUrl to the map
     };
@@ -32,6 +35,7 @@ class Client {
       id: map['id'],
       name: map['name'],
       email: map['email'],
+      phone: map['phone'],
       balance: balance,
       clientImageUrl:
           map['clientImageUrl'], // Retrieve clientImageUrl from the map

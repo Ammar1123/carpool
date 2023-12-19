@@ -4,7 +4,7 @@ import 'package:carpool/models/client.dart';
 
 class DatabaseHelper {
   static const _databaseName = "ClientDatabase.db";
-  static const _databaseVersion = 1;
+  static const _databaseVersion = 2;
   static const table = "client_table";
 
   // Make this a singleton class
@@ -13,14 +13,31 @@ class DatabaseHelper {
 
   static Database? _database;
   Future<Database> get database async {
-    return _database ??= await _initDatabase();
+    return _database ??= await initDatabase();
   }
 
   // Initialize the database
-  Future<Database> _initDatabase() async {
+  Future<Database> initDatabase() async {
     String path = join(await getDatabasesPath(), _databaseName);
     return await openDatabase(path,
         version: _databaseVersion, onCreate: _onCreate);
+  }
+
+  Future _onUpgrade(Database db, int oldVersion, int newVersion) async {
+    if (oldVersion < newVersion) {
+      await db.execute("ALTER TABLE $table ADD COLUMN phone TEXT");
+    }
+  }
+
+  // Clear all data from the client_table
+  Future<void> clearClientTable() async {
+    Database db = await database;
+    await db.delete(table);
+  }
+
+  Future<void> dropClientTable() async {
+    Database db = await database;
+    await db.execute('DROP TABLE IF EXISTS $table');
   }
 
   Future _onCreate(Database db, int version) async {
@@ -29,6 +46,7 @@ class DatabaseHelper {
         id TEXT PRIMARY KEY,
         name TEXT,
         email TEXT,
+        phone TEXT,
         balance REAL,
         clientImageUrl TEXT
       )
