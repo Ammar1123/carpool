@@ -87,7 +87,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   const Text('Confirm', style: TextStyle(color: Colors.blue)),
               onPressed: () async {
                 await FirebaseAuth.instance.signOut();
-                Navigator.of(context).pushReplacementNamed('/login');
+                Navigator.of(context).pushNamedAndRemoveUntil(
+                    '/login', (Route<dynamic> route) => false);
               },
             ),
           ],

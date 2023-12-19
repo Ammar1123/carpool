@@ -112,14 +112,52 @@ class OrderHistoryScreen extends StatelessWidget {
   }
 
   ListTile _buildOrderTile(Order order) {
+    Color statusColor; // Declare a variable for status text color
+
+    // Assign color based on order status
+    switch (order.status) {
+      case 'pending':
+        statusColor = Colors.yellow;
+        break;
+      case 'approved':
+        statusColor = Colors.green;
+        break;
+      case 'declined':
+        statusColor = Colors.red;
+        break;
+      default:
+        statusColor = Colors.grey; // Default color for other statuses
+    }
+
     return ListTile(
       contentPadding: const EdgeInsets.all(10),
-      title: Text(order.title,
-          style: const TextStyle(
-              fontSize: 22, color: Colors.white, fontWeight: FontWeight.bold)),
-      subtitle: Text(
-          'Status: ${order.status} \nDriver: ${order.driverName} \nTime: ${DateFormat("d MMM -- h:mm a").format(order.time)}',
-          style: const TextStyle(fontSize: 18, color: Colors.white)),
+      title: Text(
+        order.title,
+        style: const TextStyle(
+          fontSize: 22,
+          color: Colors.white,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      subtitle: Text.rich(
+        TextSpan(
+          children: [
+            const TextSpan(
+              text: 'Status: ',
+              style: TextStyle(fontSize: 18, color: Colors.white),
+            ),
+            TextSpan(
+              text: order.status,
+              style: TextStyle(fontSize: 18, color: statusColor),
+            ),
+            TextSpan(
+              text:
+                  '\nDriver: ${order.driverName} \nTime: ${DateFormat("d MMM -- h:mm a").format(order.time)}',
+              style: const TextStyle(fontSize: 18, color: Colors.white),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
