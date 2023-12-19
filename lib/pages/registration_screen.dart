@@ -52,8 +52,7 @@ class _RegisterFormState extends State<RegisterForm> {
               shape: BoxShape.circle,
               image: DecorationImage(
                 fit: BoxFit.cover,
-                image: AssetImage(
-                    'lib/assets/images.jpeg'), // Replace with your image
+                image: AssetImage('lib/images.jpeg'), // Replace with your image
               ),
             ),
           ),

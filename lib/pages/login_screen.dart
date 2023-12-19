@@ -42,7 +42,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     image: DecorationImage(
                       fit: BoxFit.cover,
                       image: AssetImage(
-                          'lib/assets/images.jpeg'), // Replace with your image
+                          'lib/images.jpeg'), // Replace with your image
                     ),
                   ),
                 ),
